@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Jagannath Consultants</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { --primary: #002B5B; --secondary: #FF6B35; --light-bg: #F4F8FB; --white: #ffffff; --text-main: #1A1A1A; --text-light: #555555; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { background-color: var(--white); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; } ul { list-style: none; padding: 0; margin: 0; }
+
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        .slide-in-left { opacity: 0; transform: translateX(-50px); transition: all 1s ease; }
+        .slide-in-left.active { opacity: 1; transform: translateX(0); }
+        
+        .slide-in-right { opacity: 0; transform: translateX(50px); transition: all 1s ease; }
+        .slide-in-right.active { opacity: 1; transform: translateX(0); }
+
+        .navbar { position: fixed; top: 0; width: 100%; padding: 0.8rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: rgba(255, 255, 255, 0.95); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .nav-logo img { height: 80px; width: auto; }
+        .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+        .nav-links a { font-weight: 600; font-size: 1.05rem; color: var(--primary); transition: 0.3s; }
+        .nav-links a:hover { color: var(--secondary); }
+        .hamburger { display: none; cursor: pointer; } .bar { display: block; width: 25px; height: 3px; margin: 5px auto; background-color: var(--primary); }
+
+        .page-header {
+            background: linear-gradient(180deg, rgba(0, 43, 91, 0.9) 0%, rgba(0, 43, 91, 0.8) 100%), 
+                        url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80') center/cover;
+            height: 55vh; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white);
+            margin-top: 70px; background-attachment: fixed; background-position: center 0;
+        }
+        .page-header h1 { font-size: 3.5rem; margin-bottom: 1rem; font-weight: 800; animation: fadeUp 1s ease-out; }
+        .page-header p { font-size: 1.3rem; opacity: 0.95; animation: fadeUp 1.2s ease-out; font-weight: 400; }
+
+        .split-section { display: flex; flex-wrap: wrap; align-items: center; padding: 6rem 5%; gap: 5rem; overflow: hidden; }
+        .split-text { flex: 1; min-width: 300px; }
+        .split-image { flex: 1; min-width: 300px; }
+        .split-image img { width: 100%; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.15); transition: transform 0.5s; }
+        .split-image img:hover { transform: scale(1.02); }
+        .split-text h2 { font-size: 2.8rem; color: var(--primary); margin-bottom: 1.5rem; font-weight: 800; }
+
+        .vision-section { background: linear-gradient(135deg, #002B5B 0%, #00468C 100%); color: var(--white); padding: 8rem 5%; text-align: center; position: relative; overflow: hidden; }
+        .vision-section::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%); animation: rotate 20s linear infinite; }
+        .vision-text { font-size: 2.5rem; font-weight: 300; line-height: 1.4; margin-bottom: 3rem; font-style: italic; position: relative; z-index: 2; }
+        
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        
+        footer { background: #001f42; color: var(--white); padding: 5rem 5% 2rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; }
+        .footer-col h4 { color: var(--secondary); margin-bottom: 1.5rem; }
+        .footer-col ul li { margin-bottom: 0.8rem; color: #aaa; }
+        
+        @media (max-width: 768px) { .navbar { padding: 1rem 5%; flex-direction: column; gap: 1rem; height: auto; } .nav-links { display: none; } .nav-links.active { display: flex; flex-direction: column; } .hamburger { display: block; position: absolute; right: 20px; top: 25px; } .split-section { padding: 3rem 5%; gap: 2rem; } .page-header h1 { font-size: 2.2rem; } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-logo"><img src="logo.png" alt="Jagannath Consultants"></div>
+        <div class="hamburger"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html" style="color:var(--secondary)">About Us</a></li>
+            <li><a href="trends.html">Trends</a></li>
+            <li><a href="index.html#sectors">Industries</a></li>
+            <li><a href="index.html#contact" style="color:var(--secondary); font-weight:700;">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <div><h1>Building the Future</h1><p>Sector-Focused. Relationship-Driven. Trust-Based.</p></div>
+    </header>
+
+    <section class="split-section">
+        <div class="split-image slide-in-left"><img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80" alt="Team"></div>
+        <div class="split-text slide-in-right">
+            <h2>Who We Are</h2>
+            <p style="font-size:1.15rem; color:var(--text-light); margin-bottom:1.5rem;"><strong>Jagannath Consultants</strong> is a specialised recruitment firm focused on <strong>Energy</strong> and <strong>Education</strong>.</p>
+            <p style="font-size:1.15rem; color:var(--text-light);">With deep domain expertise, we deliver leadership hiring and niche engineering recruitment.</p>
+        </div>
+    </section>
+
+    <section class="vision-section reveal">
+        <div style="max-width:900px; margin:0 auto;">
+            <h2>OUR VISION</h2>
+            <p class="vision-text">"To be the catalyst for growth by connecting visionary organizations with the talent that builds the future."</p>
+            <div style="font-size:1.3rem; font-weight:700; position:relative; z-index:2;">TALENT &bull; TRANSFORMATION &bull; TRUST</div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><h4>Jagannath Consultants</h4><p>Talent. Transformation. Trust.</p></div>
+            <div class="footer-col"><h4>Contact</h4><p>jagannathconsultants536@gmail.com</p><p>+91 96467 00444</p></div>
+        </div>
+        <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; font-size: 0.95rem; color: #666;">
+            <p>&copy; 2026 Jagannath Consultants. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.querySelector(".hamburger");
+        const navMenu = document.querySelector(".nav-links");
+        hamburger.addEventListener("click", () => { hamburger.classList.toggle("active"); navMenu.classList.toggle("active"); });
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('active'); }); });
+        document.querySelectorAll('.reveal, .slide-in-left, .slide-in-right').forEach(el => observer.observe(el));
+        
+        // Simple Parallax Script
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const header = document.querySelector('.page-header');
+            header.style.backgroundPositionY = -(scrolled * 0.5) + 'px';
+        });
+    </script>
+</body>
+</html>
