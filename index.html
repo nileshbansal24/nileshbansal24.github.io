@@ -68,21 +68,15 @@
         .hero {
             height: 100vh; display: flex; align-items: center; justify-content: center;
             text-align: center; position: relative; overflow: hidden;
-            /* Cyber-Dynamic Dark Gradient */
             background: radial-gradient(circle at center, #111827 0%, #020617 100%);
             color: var(--white); padding: 0 5%;
         }
         
-        /* 3D Canvas */
-        #hero-canvas {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
-            pointer-events: none;
-        }
+        #hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 
         .hero-content { 
             max-width: 900px; position: relative; z-index: 2; 
             opacity: 0; transform: translateY(30px); animation: heroFadeUp 1.2s var(--ease-out-quart) forwards; 
-            /* Subtle glass backing for readability over complex 3D */
             background: rgba(0,0,0,0.2); backdrop-filter: blur(3px);
             padding: 2rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
@@ -191,9 +185,7 @@
         <div class="hamburger"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="trends.html">Trends</a></li>
-            <li><a href="#sectors">Industries</a></li>
+            <li><a href="about">About Us</a></li> <li><a href="trends">Trends</a></li> <li><a href="#sectors">Industries</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a onclick="openModal()" class="contact-link">Contact</a></li>
@@ -245,8 +237,7 @@
                 With deep domain expertise, we don't just fill vacancies; we deliver leadership strategies and technical workforce solutions that drive sustainable growth.
                 Whether you need a Vice Chancellor for a university or a Project Director for a solar plant, we find the talent that others can't.
             </p>
-            <a href="about.html" class="btn btn-primary">Read Our Full Story</a>
-        </div>
+            <a href="about" class="btn btn-primary">Read Our Full Story</a> </div>
     </section>
 
     <section class="sectors" id="sectors">
@@ -288,8 +279,7 @@
     <section class="section" style="background-color: var(--light-bg);">
         <div class="section-header reveal"><h2>Latest Industry Trends</h2><p>Curated insights from leading sources.</p></div>
         <div class="trends-grid reveal" id="trendsFeed"></div>
-        <div style="text-align: center; margin-top: 2rem;"><a href="trends.html" class="btn btn-primary" style="display: inline-block;">View More Trends</a></div>
-    </section>
+        <div style="text-align: center; margin-top: 2rem;"><a href="trends" class="btn btn-primary" style="display: inline-block;">View More Trends</a></div> </section>
 
     <section class="section" id="faq">
         <div class="section-header reveal"><h2>Frequently Asked Questions</h2></div>
@@ -552,6 +542,7 @@
             });
             chatBody.appendChild(div); chatBody.scrollTop = chatBody.scrollHeight;
         }
+
         function handleOption(text) {
             document.querySelector('.chat-options').remove();
             addUserMessage(text);
