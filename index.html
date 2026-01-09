@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600;1,700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     
@@ -47,29 +48,79 @@
         }
         .floating { animation: float 4s ease-in-out infinite; }
 
-        /* Navbar */
+        /* --- NAVBAR --- */
         .navbar {
-            position: fixed; top: 0; width: 100%; padding: 0.8rem 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            z-index: 1000; transition: all 0.4s ease;
-            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            padding: 0.8rem 5%;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            z-index: 1000; 
+            transition: all 0.4s ease;
+            
+            /* Initial: Transparent Glass */
+            background: rgba(255, 255, 255, 0.02); 
+            backdrop-filter: blur(5px);
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
+
+        /* Scrolled State: Solid White with Shadow */
+        .navbar.scrolled {
+            background: var(--white);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-bottom: none;
+        }
+        
         .nav-logo img { height: 80px; width: auto; display: block; transition: 0.3s; }
+        
         .nav-links { display: flex; gap: 2.5rem; align-items: center; list-style: none !important; }
-        .nav-links a { font-weight: 600; font-size: 1.05rem; color: var(--white); transition: 0.3s; position: relative; opacity: 0.9; }
-        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background-color: var(--secondary); transition: 0.3s; }
+        
+        /* Initial Link Color: White (for Dark Hero) */
+        .nav-links a { 
+            font-weight: 600; 
+            font-size: 1.05rem; 
+            color: var(--white); 
+            transition: 0.3s; 
+            position: relative; 
+            opacity: 0.9; 
+        }
+
+        /* Scrolled Link Color: Dark Blue (for White Nav) */
+        .navbar.scrolled .nav-links a {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after { 
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; 
+            background-color: var(--secondary); transition: 0.3s; 
+        }
         .nav-links a:hover { color: var(--secondary); opacity: 1; }
         .nav-links a:hover::after { width: 100%; }
+        
         .contact-link { color: var(--secondary) !important; font-weight: 700 !important; opacity: 1 !important; }
 
-        .hamburger { display: none; cursor: pointer; }
-        .bar { display: block; width: 25px; height: 3px; margin: 5px auto; transition: all 0.3s ease-in-out; background-color: var(--white); }
+        /* Hamburger Menu */
+        .hamburger { display: none; cursor: pointer; z-index: 1001; }
+        
+        /* Bar Color: White initially */
+        .bar { 
+            display: block; width: 25px; height: 3px; margin: 5px auto; 
+            transition: all 0.3s ease-in-out; 
+            background-color: var(--white); 
+        }
+
+        /* Bar Color: Dark on Scroll */
+        .navbar.scrolled .bar {
+            background-color: var(--primary);
+        }
 
         /* --- 3D HERO SECTION --- */
         .hero {
             height: 100vh; display: flex; align-items: center; justify-content: center;
             text-align: center; position: relative; overflow: hidden;
+            /* Dark Gradient */
             background: radial-gradient(circle at center, #111827 0%, #020617 100%);
             color: var(--white); padding: 0 5%;
         }
@@ -117,10 +168,10 @@
         .stat-item h2 { font-size: 4rem; color: var(--secondary); margin-bottom: 0.5rem; font-weight: 800; display: flex; justify-content: center; align-items: baseline; letter-spacing: -2px; }
         .stat-item p { font-size: 1.1rem; font-weight: 600; opacity: 0.8; letter-spacing: 0.5px; text-transform: uppercase; }
 
-        /* --- CAROUSEL STYLES (FIXED) --- */
+        /* --- CAROUSEL STYLES --- */
         .carousel-container {
             width: 100%;
-            overflow: hidden; /* Hides cards outside view */
+            overflow: hidden; 
             position: relative;
             padding: 20px 0;
             max-width: 1200px;
@@ -128,10 +179,10 @@
         }
 
         .carousel-track {
-            display: flex; /* Makes cards sit in a row */
+            display: flex; 
             gap: 2rem;
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth slide */
-            width: max-content; /* Ensure track is wide enough */
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); 
+            width: max-content; 
         }
 
         .trend-card { 
@@ -143,8 +194,6 @@
             border: 1px solid #eee; 
             display: flex; 
             flex-direction: column; 
-            
-            /* CRITICAL FIX: Forces card size so they don't shrink */
             flex: 0 0 320px; 
             width: 320px;
         }
@@ -154,10 +203,8 @@
         .trend-image img { width: 100%; height: 100%; object-fit: cover; }
         
         .trend-content { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
-        
         .trend-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
         
-        /* Dynamic Font */
         .source-badge { 
             font-family: 'Playfair Display', serif; 
             font-style: italic; 
@@ -172,7 +219,6 @@
         .trend-title { font-size: 1.25rem; margin-bottom: 0.8rem; color: var(--primary); font-weight: 700; line-height: 1.3; }
         .trend-desc { font-size: 0.95rem; color: var(--text-light); margin-bottom: 1.5rem; }
 
-        /* Read Source Button */
         .read-source-btn {
             display: inline-flex;
             align-items: center;
@@ -198,7 +244,7 @@
             color: white;
         }
 
-        /* --- CAROUSEL NAVIGATION ARROWS (NEW) --- */
+        /* Carousel Navigation Arrows */
         .carousel-btn {
             position: absolute;
             top: 50%;
@@ -217,25 +263,13 @@
             z-index: 10;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            opacity: 0; /* Hidden by default, shown on hover */
+            opacity: 0;
         }
         
-        .carousel-container:hover .carousel-btn {
-            opacity: 1;
-        }
-
-        .carousel-btn:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-50%) scale(1.1);
-        }
-
+        .carousel-container:hover .carousel-btn { opacity: 1; }
+        .carousel-btn:hover { background: var(--primary); color: white; transform: translateY(-50%) scale(1.1); }
         .carousel-btn.prev { left: 10px; }
         .carousel-btn.next { right: 10px; }
-
-        @media (max-width: 768px) {
-            .carousel-btn { opacity: 1; width: 40px; height: 40px; } /* Always show on mobile */
-        }
 
         /* --- FAQ & FOOTER --- */
         .faq-container { max-width: 800px; margin: 0 auto; }
@@ -244,22 +278,18 @@
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; color: var(--text-light); font-size: 1.1rem; }
         .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 1.5rem; }
 
-        /* --- PROFESSIONAL CHATBOT UI --- */
-        .chat-widget-btn { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; background: var(--secondary-gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(255, 107, 53, 0.5); cursor: pointer; z-index: 9999; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        /* --- CHATBOT UI --- */
+        .chat-widget-btn { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; background: var(--secondary-gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(255, 107, 53, 0.5); cursor: pointer; z-index: 9999; transition: all 0.3s; }
         .chat-widget-btn:hover { transform: scale(1.1); box-shadow: 0 15px 35px rgba(255, 107, 53, 0.6); }
         .chat-widget-btn i { color: white; font-size: 30px; }
         
         .chat-window { position: fixed; bottom: 110px; right: 30px; width: 380px; height: 550px; background: white; border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); display: none; flex-direction: column; overflow: hidden; z-index: 9999; animation: slideUp 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); border: 1px solid rgba(0,0,0,0.05); }
         .chat-window.open { display: flex; }
         
-        .chat-header { background: var(--primary); color: white; padding: 18px 24px; display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: 0.5px; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .chat-header { background: var(--primary); color: white; padding: 18px 24px; display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .close-chat { margin-left: auto; cursor: pointer; opacity: 0.8; transition: 0.2s; font-size: 1.5rem; }
-        .close-chat:hover { opacity: 1; transform: scale(1.1); }
         
-        .chat-body { flex: 1; padding: 20px; overflow-y: auto; background: #F4F6F8; display: flex; flex-direction: column; gap: 15px; scrollbar-width: thin; scrollbar-color: #ddd transparent; }
-        .chat-body::-webkit-scrollbar { width: 6px; }
-        .chat-body::-webkit-scrollbar-thumb { background-color: #ddd; border-radius: 20px; }
-
+        .chat-body { flex: 1; padding: 20px; overflow-y: auto; background: #F4F6F8; display: flex; flex-direction: column; gap: 15px; }
         .chat-message { max-width: 85%; padding: 14px 18px; border-radius: 18px; font-size: 0.95rem; line-height: 1.5; position: relative; animation: messageFade 0.3s ease-out; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
         .chat-message.bot { background: white; color: var(--text-main); border-top-left-radius: 4px; align-self: flex-start; border: 1px solid #eee; }
         .chat-message.user { background: var(--primary); color: white; border-top-right-radius: 4px; align-self: flex-end; box-shadow: 0 4px 10px rgba(0, 43, 91, 0.2); }
@@ -304,22 +334,26 @@
         .copyright { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; font-size: 0.95rem; color: #666; }
 
         @media (max-width: 768px) {
+            /* Mobile Navbar Adjustments */
             .navbar { padding: 1rem 5%; flex-direction: column; gap: 1rem; height: auto; background: rgba(0, 43, 91, 0.95); }
-            .nav-logo img { height: 60px; }
-            .nav-links { display: none; }
-            .nav-links.active { display: flex; flex-direction: column; gap: 0.8rem; width: 100%; text-align: center; padding-bottom: 1rem; }
+            /* Mobile Links Styling */
+            .nav-links { display: none; width: 100%; }
+            .nav-links.active { display: flex; flex-direction: column; gap: 1rem; text-align: center; padding-bottom: 1rem; }
             .hamburger { display: block; position: absolute; right: 20px; top: 25px; }
+            
             .hero h1 { font-size: 2.2rem; }
             .sectors { grid-template-columns: 1fr; height: auto; }
             .sector-card { height: 400px; }
             .stats-bar { flex-direction: column; gap: 2rem; }
             
             /* Mobile Carousel */
-            .trend-card { flex: 0 0 85vw; width: 85vw; } /* Slightly smaller for mobile */
+            .carousel-btn { opacity: 1; width: 40px; height: 40px; } /* Always show arrows on mobile */
+            .trend-card { flex: 0 0 85vw; width: 85vw; } 
             
             .chat-widget-btn { bottom: 20px; right: 20px; }
             .chat-window { bottom: 80px; right: 20px; width: 90%; height: 65vh; }
         }
+
         @keyframes heroFadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
@@ -339,21 +373,6 @@
             <li><a onclick="openModal()" class="contact-link">Contact</a></li>
         </ul>
     </nav>
-
-    <div id="contactModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2 style="color: var(--primary); margin-bottom: 1.5rem;">Chat on WhatsApp</h2>
-            <form id="contactForm">
-                <div class="form-group"><label>Name</label><input type="text" id="name" placeholder="Your Name" required></div>
-                <div class="form-group"><label>Email Address</label><input type="email" id="email" placeholder="Your Email Address" required></div>
-                <div class="form-group"><label>Query</label><textarea id="message" placeholder="How can we help?" required style="height: 100px;"></textarea></div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                    <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i> Send Message
-                </button>
-            </form>
-        </div>
-    </div>
 
     <div class="chat-widget-btn" onclick="toggleChat()"><i class="fa-solid fa-robot"></i></div>
     <div class="chat-window" id="chatWindow">
@@ -480,6 +499,21 @@
         <div class="copyright"><p>&copy; 2026 Jagannath Consultants. All Rights Reserved.</p></div>
     </footer>
 
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 style="color: var(--primary); margin-bottom: 1.5rem;">Chat on WhatsApp</h2>
+            <form id="contactForm">
+                <div class="form-group"><label>Name</label><input type="text" id="name" placeholder="Your Name" required></div>
+                <div class="form-group"><label>Email Address</label><input type="email" id="email" placeholder="Your Email Address" required></div>
+                <div class="form-group"><label>Query</label><textarea id="message" placeholder="How can we help?" required style="height: 100px;"></textarea></div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i> Send Message
+                </button>
+            </form>
+        </div>
+    </div>
+
     <script>
         // Init 3D Tilt
         VanillaTilt.init(document.querySelectorAll(".service-card"), { max: 15, speed: 400, glare: true, "max-glare": 0.2 });
@@ -551,10 +585,13 @@
         };
         initThreeJS();
 
-        // --- STANDARD JS ---
+        // --- STANDARD JS & HAMBURGER ---
         const hamburger = document.querySelector(".hamburger");
         const navMenu = document.querySelector(".nav-links");
-        hamburger.addEventListener("click", () => { hamburger.classList.toggle("active"); navMenu.classList.toggle("active"); });
+        hamburger.addEventListener("click", () => { 
+            hamburger.classList.toggle("active"); 
+            navMenu.classList.toggle("active"); 
+        });
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('active'); });
@@ -575,10 +612,14 @@
         });
         statsObserver.observe(document.getElementById('stats'));
 
+        // --- NAVBAR SCROLL EFFECT ---
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) navbar.style.background = "#050505"; 
-            else navbar.style.background = "rgba(255, 255, 255, 0.05)";
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled'); // White background, Dark text
+            } else {
+                navbar.classList.remove('scrolled'); // Transparent background, White text
+            }
         });
 
         document.querySelectorAll('.faq-question').forEach(button => {
@@ -610,7 +651,8 @@
             { source: "Higher Ed Dive", title: "Universities Adopting Hybrid Models", desc: "Strategies focus on blending digital tools with traditional teaching.", img: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80", link: "https://www.highereddive.com/" },
             { source: "LiveMint", title: "Hiring Surge in Tier-2 Cities", desc: "Remote work allows EdTech giants to tap into new talent pools.", img: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80", link: "https://www.livemint.com/" },
             { source: "TechCrunch", title: "AI in Recruitment", desc: "How Artificial Intelligence is reshaping the way companies hire top talent.", img: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80", link: "#" },
-            { source: "Economic Times", title: "Green Hydrogen Policies", desc: "New government policies to boost Green Hydrogen production in 2026.", img: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80", link: "#" }
+            { source: "Economic Times", title: "Green Hydrogen Policies", desc: "New government policies to boost Green Hydrogen production in 2026.", img: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80", link: "#" },
+            { source: "CleanTechnica", title: "Offshore Wind Expansion", desc: "New government grants fuel massive offshore wind projects in the North Sea.", img: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&q=80", link: "#" }
         ];
 
         const track = document.getElementById('trendsTrack');
